@@ -1,5 +1,6 @@
 import telebot
 import archiveis
+import logging
 
 bot = telebot.TeleBot("TOKEN")
 
@@ -11,5 +12,6 @@ while True:
     try:
         bot.polling(none_stop=True)
     except Exception as e:
+	logger = telebot.logger
         logger.error(e)
         time.sleep(15)
