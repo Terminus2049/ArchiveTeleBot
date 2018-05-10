@@ -7,4 +7,9 @@ bot = telebot.TeleBot("TOKEN")
 def echo_all(message):
 	bot.reply_to(message, archiveis.capture(message.text))
 
-bot.polling()
+while True:
+    try:
+        bot.polling(none_stop=True)
+    except Exception as e:
+        logger.error(e)
+        time.sleep(15)
