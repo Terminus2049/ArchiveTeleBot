@@ -5,7 +5,7 @@ A telegram bot to save url to [archive.is](https://archive.is/).
 
 ## 自行部署方法
 
-1. 向 <http://t.me/BotFather> 申请 Token。
+1. 向 <http://t.me/BotFather> 申请 Token，填入 `ArchiveTeleBot.py` 中的 `bot = telebot.TeleBot("TOKEN")`。
 
 2. 服务器部署
 
