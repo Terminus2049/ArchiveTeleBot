@@ -1,6 +1,7 @@
 import telebot
 import archiveis
 import logging
+import time
 
 bot = telebot.TeleBot("TOKEN")
 
