@@ -7,9 +7,10 @@ bot = telebot.TeleBot("TOKEN")
 
 @bot.message_handler(regexp="(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])")
 def echo_all(message):
-	bot.reply_to(message, archiveis.capture(message.text))
+	reply = archiveis.capture(message.text)
+	bot.reply_to(message, reply)
 	with open('archive.txt', 'a') as f:
-		f.write(message.text + '\n')
+		f.write(time.ctime() + '\n' + message.text + '\n' + reply + '\n' + '\n')
 
 
 while True:
