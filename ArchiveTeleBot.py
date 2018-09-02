@@ -15,7 +15,7 @@ def echo_all(message):
 
 while True:
     try:
-        bot.polling(none_stop=True)
+        bot.polling(none_stop=True, timeout=123)
     except Exception as e:
 	logger = telebot.logger
         logger.error(e)
