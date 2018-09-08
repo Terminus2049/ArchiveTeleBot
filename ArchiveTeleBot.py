@@ -2,6 +2,8 @@ import telebot
 import archiveis
 import logging
 import time
+import requests
+from bs4 import BeautifulSoup
 
 bot = telebot.TeleBot("TOKEN", threaded=False)
 
@@ -9,8 +11,16 @@ bot = telebot.TeleBot("TOKEN", threaded=False)
 def echo_all(message):
 	reply = archiveis.capture(message.text)
 	bot.reply_to(message, reply)
+
+        html = requests.get(message.text)
+        Soup = BeautifulSoup(html.text, "html.parser")
+
 	with open('archive.txt', 'a') as f:
-		f.write(time.ctime() + '\n' + message.text + '\n' + reply + '\n' + '\n')
+		f.write(time.ctime() + '\n' + message.text + '\n' + reply)
+        with open('archive.txt', 'a') as f:
+            f.write('\n' + '\n')
+            with open('archive.txt', 'a') as f:
+                f.write(Soup.title.text.encode('utf-8'))
 
 
 while True:
