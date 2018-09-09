@@ -14,12 +14,12 @@ def echo_all(message):
 	html = requests.get(message.text)
 	Title = BeautifulSoup(html.text, "html.parser").title.text.encode('utf-8').strip()
 
-	with open('data/archive.csv', 'a') as f1:
+	with open('archive.csv', 'a') as f1:
 		f1.write(time.ctime() + ',' + message.text + ',' + reply + ',')
 		f1.write(Title)
 		f1.write('\n')
 
-	with open('data/archive.txt', 'a') as f2:
+	with open('archive.txt', 'a') as f2:
 		f2.write(time.ctime() + '\n' + message.text + '\n' + reply + '\n')
 		f2.write(Title)
 		f2.write('\n' + '\n')
