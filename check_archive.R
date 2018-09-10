@@ -3,11 +3,21 @@ library(magrittr)
 
 archive = read.csv("archive.csv", header = F, stringsAsFactors = F)
 
+names(archive) = c('Time', 'Title_url', 'Archive_url', 'Title')
+archive$Time = substr(archive$Time, 5, nchar(archive$Time))
+archive$Time = parse_datetime(archive$Time, format = "%b %d %H:%M:%S %Y")
+archive$Time = archive$Time + 8*60*60
+
+archive = archive[!duplicated(archive$Archive_url), ]
+
+archive = archive[seq(dim(archive)[1],1),]
+
 Get_title = function(url){
   read_html(url) %>%
     html_nodes("title") %>%
-    html_text()
+    html_text() %>%
+    trimws()
 }
 
-archive$title = sapply(archive$V2, Get_title)
+archive$check = sapply(archive$Title_url, Get_title)
 write.csv(archive, "archive2.csv", row.names = F)
