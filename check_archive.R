@@ -21,4 +21,5 @@ Get_title = function(url){
 }
 
 archive$check = sapply(archive$Title_url, Get_title)
+archive = apply(archive, 2, as.character)
 write.csv(archive, "archive2.csv", row.names = F)
