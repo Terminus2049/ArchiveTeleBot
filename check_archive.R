@@ -15,10 +15,14 @@ archive = archive[!is.na(archive$Title_url), ]
 archive = archive[seq(dim(archive)[1],1),]
 
 Get_title = function(url){
-  read_html(url) %>%
-    html_nodes("title") %>%
-    html_text() %>%
-    trimws()
+  tryCatch({
+    read_html(url) %>%
+      html_nodes("title") %>%
+      html_text() %>%
+      trimws()
+  }, error = function(e) {
+    print('check failure')
+  })
 }
 
 archive$check = sapply(archive$Title_url, Get_title)
