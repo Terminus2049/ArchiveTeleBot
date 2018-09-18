@@ -10,6 +10,7 @@ archive$Time = parse_datetime(archive$Time, format = "%b %d %H:%M:%S %Y")
 archive$Time = archive$Time + 8*60*60
 
 archive = archive[!duplicated(archive$Archive_url), ]
+archive = archive[!is.na(archive$Title_url), ]
 
 archive = archive[seq(dim(archive)[1],1),]
 
