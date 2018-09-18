@@ -43,7 +43,7 @@ server <- function(input, output, session) {
     DT::datatable(archive[, 1:3], escape = FALSE,
                   options = list(
                     order = list(1, 'desc'),
-                    pageLength = 15))
+                    pageLength = 30))
   })
 
   archive2 = reactiveFileReader(60000, session, 'archive2.csv', read_csv)
@@ -53,7 +53,7 @@ server <- function(input, output, session) {
     archive2$Title_url = createLink(archive2$Title_url, archive2$Title)
     archive2$Archive_url = createLink(archive2$Archive_url, archive2$Archive_url)
     DT::datatable(archive2[, c(1,2,3,5)], escape = FALSE,
-                  options = list(pageLength = 15))
+                  options = list(pageLength = 30))
   })
 
 }
