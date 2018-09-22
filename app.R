@@ -3,9 +3,8 @@ library(shiny)
 library(readr)
 
 createLink <- function(link, text) {
-  l = paste0('<a href="', link,
+  paste0('<a href="', link,
              '" target="_blank" class="btn btn-primary">', text, '</a>')
-  sprintf(l, link)
 }
 
 
