@@ -12,7 +12,9 @@ A telegram bot to save url to [archive.is](https://archive.is/).
 只支持 python2。
 
 ```bash
-pip install archiveis pyTelegramBotAPI
+
+pip install archiveis pyTelegramBotAPI bs4
+pip install requests==2.5.3
 ```
 
 使用
