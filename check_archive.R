@@ -25,6 +25,9 @@ Get_title = function(url){
   })
 }
 
+N = ifelse(nrow(archive) >= 30, 30, nrow(archive))
+archive = archive[1:N, ]
+
 archive$check = sapply(archive$Title_url, Get_title)
 archive$check = as.character(archive$check)
 write.csv(archive, "archive2.csv", row.names = F)
