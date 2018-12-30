@@ -9,7 +9,7 @@ bot = telebot.TeleBot("TOKEN", threaded=False)
 
 @bot.message_handler(regexp="(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])")
 def echo_all(message):
-	reply = archivenow.push(message.text, 'is')
+	reply = archivenow.push(message.text, 'is')[0]
 	try:
 		bot.reply_to(message, reply)
 	except Exception as e:
