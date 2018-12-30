@@ -1,15 +1,15 @@
 import telebot
-import archiveis
 import logging
 import time
 import requests
+from archivenow import archivenow
 from bs4 import BeautifulSoup
 
 bot = telebot.TeleBot("TOKEN", threaded=False)
 
 @bot.message_handler(regexp="(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])")
 def echo_all(message):
-	reply = archiveis.capture(message.text)
+	reply = archivenow.push(message.text, 'is')
 	try:
 		bot.reply_to(message, reply)
 	except Exception as e:
