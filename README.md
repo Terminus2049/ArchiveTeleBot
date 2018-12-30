@@ -13,7 +13,7 @@ A telegram bot to save url to [archive.is](https://archive.is/).
 
 ```bash
 
-pip install archiveis pyTelegramBotAPI bs4
+pip install archivenow
 pip install requests==2.5.3
 ```
 
