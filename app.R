@@ -12,11 +12,11 @@ ui <- function(input, output, session){
 
   navbarPage(
     title = 'ArchiveTeleBot',
-    tabPanel('实时查看',
-             DT::dataTableOutput("table0")
-    ),
     tabPanel('自动检查（每1h更新一次）',
              DT::dataTableOutput("table1")
+    ),
+    tabPanel('实时查看',
+             DT::dataTableOutput("table0")
     )
   )
 }
