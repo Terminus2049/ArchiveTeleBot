@@ -25,7 +25,7 @@ server <- function(input, output, session) {
   output$table1 <- DT::renderDataTable({
 
     archive2 = archive2()
-    archive2$Title = ifelse(nchar(archive2$Title) > 10, substr(archive2$Title, 1, 20), archive2$Title)
+    archive2$Title = ifelse(nchar(archive2$Title) > 20, substr(archive2$Title, 1, 20), archive2$Title)
     archive2$Title_url = ifelse(startsWith(archive2$Title_url, "https://mp.weixin.qq.com/s"),
                                archive2$Title,
                                createLink(archive2$Title_url, archive2$Title))
