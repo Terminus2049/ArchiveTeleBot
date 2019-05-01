@@ -30,4 +30,17 @@ archive = archive[1:N, ]
 
 archive$check = sapply(archive$Title_url, Get_title)
 archive$check = as.character(archive$check)
-write.csv(archive, "archive2.csv", row.names = F)
+
+createLink <- function(link, text) {
+  paste0('<a href="', link,
+         '" target="_blank" class="btn btn-primary">', text, '</a>')
+}
+
+archive$Title = ifelse(nchar(archive$Title) > 20, substr(archive$Title, 1, 20), archive$Title)
+archive$Title_url = ifelse(startsWith(archive$Title_url, "https://mp.weixin.qq.com/s"),
+                            archive$Title,
+                            createLink(archive$Title_url, archive$Title))
+archive$Archive_url = createLink(archive$Archive_url, archive$Archive_url)
+archive2 = archive[, c(1,2,3,5)]
+
+write.csv(archive2, "archive2.csv", row.names = F)
