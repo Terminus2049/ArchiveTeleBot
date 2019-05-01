@@ -25,7 +25,7 @@ Get_title = function(url){
   })
 }
 
-N = ifelse(nrow(archive) >= 30, 30, nrow(archive))
+N = ifelse(nrow(archive) >= 60, 60, nrow(archive))
 archive = archive[1:N, ]
 
 archive$check = sapply(archive$Title_url, Get_title)
