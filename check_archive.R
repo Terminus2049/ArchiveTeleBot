@@ -16,8 +16,9 @@ archive = archive[seq(dim(archive)[1],1),]
 
 Get_title = function(url){
   tryCatch({
+    node = ifelse(startsWith(url, "https://mp.weixin.qq.com/s"), ".rich_media_title", "title")
     read_html(url) %>%
-      html_nodes("title") %>%
+      html_nodes(node) %>%
       html_text() %>%
       trimws()
   }, error = function(e) {
