@@ -23,7 +23,11 @@ def echo_all(message):
             bot.reply_to(message, 'oooops, please send the url again.')
 
         html = requests.get(message.text)
-        Title = BeautifulSoup(html.text, "html.parser").title.text.encode('utf-8').strip()
+        soup = BeautifulSoup(html.text, "html.parser")
+        if 'https://mp.weixin.qq.com/s' in message.text:
+          Title = soup.h2.text.strip()
+        else:
+          Title = soup.title.text.encode('utf-8').strip()
 
         with open('archive.csv', 'a') as f1:
             f1.write(time.ctime() + ',' + message.text + ',' + reply + ',')
