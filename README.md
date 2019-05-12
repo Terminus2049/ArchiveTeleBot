@@ -11,18 +11,19 @@ A telegram bot to save url to [archive.is](https://archive.is/).
 
 2. 服务器部署
 
-只支持 python2。
+同时支持 python2 和 python3，建议使用 python3。
 
 ```bash
 
 pip install archivenow
 pip install requests==2.5.3
+pip install pyTelegramBotAPI bs4
 ```
 
 使用
 
 ```python
-python2 ArchiveTeleBot.py
+python ArchiveTeleBot.py
 ```
 
 自动检测网址：
