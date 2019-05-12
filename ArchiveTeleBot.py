@@ -24,7 +24,7 @@ def echo_all(message):
 
         html = requests.get(message.text)
         soup = BeautifulSoup(html.text, "html.parser")
-        if 'https://mp.weixin.qq.com/s' in message.text:
+        if message.text.startswith('https://mp.weixin.qq.com/s'):
           Title = soup.h2.text.strip()
         else:
           Title = soup.title.text.encode('utf-8').strip()
