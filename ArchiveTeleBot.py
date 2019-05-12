@@ -27,7 +27,7 @@ def echo_all(message):
         if message.text.startswith('https://mp.weixin.qq.com/s'):
           Title = soup.h2.text.strip()
         else:
-          Title = soup.title.text.encode('utf-8').strip()
+          Title = soup.title.text.strip()
 
         with open('archive.csv', 'a') as f1:
             f1.write(time.ctime() + ',' + message.text + ',' + reply + ',')
