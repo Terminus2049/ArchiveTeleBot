@@ -10,7 +10,13 @@ bot = telebot.TeleBot("TOKEN", threaded=False)
 @bot.message_handler(
     regexp="(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])")
 def echo_all(message):
-    reply = archivenow.push(message.text, 'is')[0]
+    
+    if message.text.startswith('https://mp.weixin.qq.com/s?__biz='):
+        reply_text = '&'.join(message.text.split('&', 4)[:4])
+        reply = archivenow.push(reply_text, 'is')[0]
+    else:
+        reply = archivenow.push(message.text, 'is')[0]
+        
     if 'weibo.com' in message.text or 'weibo.cn' in message.text:
         try:
             bot.reply_to(message, "archive doesn't support weibo")
