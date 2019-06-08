@@ -2,7 +2,7 @@ library(rvest)
 library(magrittr)
 library(readr)
 
-archive = read_csv("archive.csv", col_names = F)
+archive = read.csv("archive.csv", header = F, stringsAsFactors = F)
 
 names(archive) = c('Time', 'Title_url', 'Archive_url', 'Title')
 archive$Time = substr(archive$Time, 5, nchar(archive$Time))
