@@ -34,7 +34,7 @@ archive$check = as.character(archive$check)
 
 createLink <- function(link, text) {
   paste0('<a href="', link,
-         '" target="_blank" class="btn btn-primary">', text, '</a>')
+         '" target="_blank">', text, '</a>')
 }
 
 archive$Title = ifelse(nchar(archive$Title) > 20, substr(archive$Title, 1, 20), archive$Title)
