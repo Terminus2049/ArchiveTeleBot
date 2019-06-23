@@ -45,3 +45,6 @@ archive$Archive_url = createLink(archive$Archive_url, archive$Archive_url)
 archive2 = archive[, c(1,2,3,5)]
 
 write.csv(archive2, "archive2.csv", row.names = F)
+
+rm(list=ls())
+gc()
