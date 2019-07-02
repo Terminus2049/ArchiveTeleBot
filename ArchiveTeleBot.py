@@ -18,7 +18,7 @@ def echo_all(message):
             bot.reply_to(message, 'oooops, please send the url again.')
     else:
         if message.text.startswith('https://mp.weixin.qq.com/') and '__biz=' in message.text:
-            url = '&'.join(message.text.split('&', 4)[:4])
+            url = '&'.join(message.text.split('&', 5)[:5])
         else:
             url = message.text
         try:
