@@ -38,9 +38,7 @@ createLink <- function(link, text) {
 }
 
 archive$Title = ifelse(nchar(archive$Title) > 20, substr(archive$Title, 1, 20), archive$Title)
-archive$Title_url = ifelse(startsWith(archive$Title_url, "https://mp.weixin.qq.com/s"),
-                            archive$Title,
-                            createLink(archive$Title_url, archive$Title))
+archive$Title_url = createLink(archive$Title_url, archive$Title)
 archive$Archive_url = createLink(archive$Archive_url, archive$Archive_url)
 archive2 = archive[, c(1,2,3,5)]
 
