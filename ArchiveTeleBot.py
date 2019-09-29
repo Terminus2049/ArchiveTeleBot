@@ -22,8 +22,10 @@ def echo_all(message):
         else:
             url = message.text
         try:
-            reply = archivenow.push(url, 'is')[0]
-            bot.reply_to(message, reply)
+            reply_is = archivenow.push(url, 'is')[0]
+            bot.reply_to(message, reply_is)
+            reply_ia = archivenow.push(url, 'ia')[0]
+            bot.reply_to(message, reply_ia)
         except Exception as e:
             bot.reply_to(message, 'oooops, please send the url again.')
 
@@ -35,7 +37,7 @@ def echo_all(message):
             Title = soup.title.text.strip()
 
         with open('archive.csv', 'a') as f1:
-            f1.write(time.ctime() + ',' + message.text + ',' + reply + ',')
+            f1.write(time.ctime() + ',' + message.text + ',' + reply_is + ',')
             f1.write(Title)
             f1.write('\n')
 
