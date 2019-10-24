@@ -35,6 +35,7 @@ def echo_all(message):
             Title = soup.h2.text.strip()
         else:
             Title = soup.title.text.strip()
+            Title = Title.replace('\n','')
 
         with open('archive.csv', 'a') as f1:
             f1.write(time.ctime() + ',' + message.text + ',' + reply_is + ',')
