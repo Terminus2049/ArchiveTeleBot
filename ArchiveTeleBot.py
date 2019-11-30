@@ -33,9 +33,11 @@ def echo_all(message):
         soup = BeautifulSoup(html.text, "html.parser")
         if message.text.startswith('https://mp.weixin.qq.com/s'):
             Title = soup.h2.text.strip()
+            Title = Title.replace(',',' ')
         else:
             Title = soup.title.text.strip()
             Title = Title.replace('\n','')
+            Title = Title.replace(',',' ')
 
         with open('archive.csv', 'a') as f1:
             f1.write(time.ctime() + ',' + message.text + ',' + reply_is + ',')
