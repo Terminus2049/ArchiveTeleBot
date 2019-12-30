@@ -40,7 +40,7 @@ createLink <- function(link, text) {
 archive$Title = ifelse(nchar(archive$Title) > 20, substr(archive$Title, 1, 20), archive$Title)
 archive$Title_url = createLink(archive$Title_url, archive$Title)
 archive$Archive_url = createLink(archive$Archive_url, archive$Archive_url)
-archive2 = archive[, c(1,2,3,5)]
+archive2 = archive[, c(1,2,5,3)]
 
 write.csv(archive2, "archive2.csv", row.names = F)
 
