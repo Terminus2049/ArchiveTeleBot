@@ -37,7 +37,7 @@ createLink <- function(link, text) {
          '" target="_blank">', text, '</a>')
 }
 
-archive$mono = createLink(paste0('http://206.189.252.32:8083/', archive$Title), 'monolith')
+archive$mono = createLink(paste0('http://206.189.252.32:8083/', archive$Title, '.html'), 'monolith')
 archive$Title = ifelse(nchar(archive$Title) > 40, substr(archive$Title, 1, 40), archive$Title)
 archive$Title_url = createLink(archive$Title_url, archive$Title)
 archive$Archive_url = createLink(archive$Archive_url, archive$Archive_url)
