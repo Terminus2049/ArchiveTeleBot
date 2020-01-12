@@ -1,11 +1,10 @@
 # ArchiveTeleBot
-A telegram bot to save url to [archive.is](https://archive.is/).
+
+网页存档机器人 <http://t.me/Archive2049Bot>
 
 <http://206.189.252.32:8088/>
 
 附带自动检测保存的网页是否仍然有效。
-
-可以直接使用 <http://t.me/Archive2049Bot>，会忽略一切非 url 消息。
 
 **注意**：会将提交的网址保存在 archive.csv 文件中，并自动检测网页是否已经404。检测结果保存在 archive2.csv 中。
 
