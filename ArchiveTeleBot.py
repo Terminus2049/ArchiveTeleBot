@@ -6,8 +6,8 @@ from archivenow import archivenow
 from bs4 import BeautifulSoup
 import os
 import random
-
 bot = telebot.TeleBot("TOKEN", threaded=False)
+
 
 @bot.message_handler(
     regexp="(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])")
@@ -23,28 +23,30 @@ def echo_all(message):
             url = '&'.join(message.text.split('&', 5)[:5])
         else:
             url = message.text
-
-        html = requests.get(url)
+        headers={"User-Agent" : "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1.6) ",
+ 		 "Accept" : "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+		  "Accept-Language" : "en-us",
+  	       	"Connection" : "keep-alive",
+  		"Accept-Charset" : "GB2312,utf-8;q=0.7,*;q=0.7"}
+        html = requests.get(url, headers = headers)
         soup = BeautifulSoup(html.text, "html.parser")
         if len(soup) == 0:
             Title = datetime.datetime.now().strftime("%Y-%m-%d-") + str(random.randrange(2, 50000000))
         else:
             if message.text.startswith('https://mp.weixin.qq.com/s'):
                 Title = soup.h2.text.strip()
-                Title = Title.replace('|',' ')
-                Title = Title.replace('<',' ')
-                Title = Title.replace('>',' ')
-                Title = Title.replace(',',' ')
-                Title = Title.replace(' ','_')
+            elif "zhihu.com" in message.text:
+                Title = soup.title.text.strip() + "-" + str(random.randrange(2, 50000000))
             else:
                 Title = soup.title.text.strip()
-                Title = Title.replace('|',' ')
-                Title = Title.replace('<',' ')
-                Title = Title.replace('>',' ')
-                Title = Title.replace('\n','')
+        Title = Title.replace('\n','')
+        Title = Title.replace('|',' ')
+        Title = Title.replace('<',' ')
+        Title = Title.replace('>',' ')
+        Title = Title.replace(',',' ')
+        Title = Title.replace(' ','_')
 
         cmd = 'monolith ' + url + ' -o /srv/web/mono/' + Title + '.html'
-        print(cmd)
         os.system(cmd)
         reply_url = 'http://206.189.252.32:8083/'  + Title + '.html'
         bot.reply_to(message, reply_url)
@@ -55,9 +57,6 @@ def echo_all(message):
             bot.reply_to(message, reply_ia)
         except Exception as e:
             bot.reply_to(message, 'oooops, please send the url again.')
-            logger = telebot.logger
-            logger.error(e)
-            time.sleep(15)
 
 
 
@@ -71,4 +70,7 @@ def echo_all(message):
 while True:
     try:
         bot.polling(none_stop=True, timeout=123)
-                
+    except Exception as e:
+        logger = telebot.logger
+        logger.error(e)
+        time.sleep(15)
