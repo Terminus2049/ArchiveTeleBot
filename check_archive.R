@@ -1,19 +1,26 @@
 library(rvest)
 library(magrittr)
-library(readr)
+library(stringr)
 
-archive = read.csv("archive.csv", header = F, stringsAsFactors = F)
+archive = read.csv("archive.csv", stringsAsFactors = F)
 
-names(archive) = c('Time', 'Title_url', 'Archive_url', 'Title')
-archive$Time = substr(archive$Time, 5, nchar(archive$Time))
-archive$Time = parse_datetime(archive$Time, format = "%b %d %H:%M:%S %Y")
-archive$Time = archive$Time + 8*60*60
-
-archive = archive[!duplicated(archive$Archive_url), ]
-archive = archive[!is.na(archive$Title_url), ]
-
+# 先按照时间排序
+archive$提交时间 = strptime(archive$提交时间, format = "%a %b %d %H:%M:%S %Y")
 archive = archive[seq(dim(archive)[1],1),]
 
+# 取提交时间不为空
+archive = archive[!is.na(archive$提交时间), ]
+
+# 取最新的N条
+N = ifelse(nrow(archive) >= 80, 80, nrow(archive))
+archive = archive[1:N, ]
+
+# 提取原始网址并去重
+url_pattern <- "http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+"
+archive$url = str_extract(archive$原始链接, url_pattern)
+archive = archive[!duplicated(archive$url), ]
+
+# check
 Get_title = function(url){
   tryCatch({
     node = ifelse(startsWith(url, "https://mp.weixin.qq.com/s"), ".rich_media_title", "title")
@@ -26,24 +33,10 @@ Get_title = function(url){
   })
 }
 
-N = ifelse(nrow(archive) >= 60, 60, nrow(archive))
-archive = archive[1:N, ]
-
-archive$check = sapply(archive$Title_url, Get_title)
+archive$check = sapply(archive$url, Get_title)
 archive$check = as.character(archive$check)
 
-createLink <- function(link, text) {
-  paste0('<a href="', link,
-         '" target="_blank">', text, '</a>')
-}
-
-archive$mono = createLink(paste0('http://206.189.252.32:8083/', archive$Title, '.html'), 'monolith')
-archive$Title = ifelse(nchar(archive$Title) > 40, substr(archive$Title, 1, 40), archive$Title)
-archive$Title_url = createLink(archive$Title_url, archive$Title)
-archive$Archive_url = createLink(archive$Archive_url, archive$Archive_url)
-archive2 = archive[, c(1,2,5,3,6)]
-
-write.csv(archive2, "archive2.csv", row.names = F)
+write.csv(archive[,c(1:4,11,5:10)], "archive2.csv", row.names = F)
 
 rm(list=ls())
 gc()
