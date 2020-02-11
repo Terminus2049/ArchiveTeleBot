@@ -19,16 +19,13 @@
 仅支持 python3。
 
 ```bash
-
-pip install archivenow
-pip install requests
-pip install pyTelegramBotAPI bs4
+pip install archivenow slimit pyTelegramBotAPI requests bs4
 ```
 
 使用
 
 ```python
-python ArchiveTeleBot.py
+python Archive_by_2049bbsBot.py
 ```
 
 自动检测网址：
