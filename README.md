@@ -1,6 +1,6 @@
 # ArchiveTeleBot
 
-网页存档机器人 <http://t.me/Archive2049Bot>
+网页存档机器人 <https://t.me/Archive_by_2049bbsBot>
 
 <http://206.189.252.32:8088/>
 
