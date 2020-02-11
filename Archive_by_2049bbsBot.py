@@ -71,6 +71,9 @@ def echo_all(message):
         title = soup.title.text.strip() + "-" + str(random.randrange(2, 50000000))
         author = "知乎小管家去死"
         description = "知乎删贴还不让别人存档。"
+     
+    elif "weibo.com" in message.text:
+        bot.reply_to(message, "暂不支持微博页面抓取，请截图后保存至 https://t.me/sm_ms_bot")
 
     else:
         Official_Account = ""
